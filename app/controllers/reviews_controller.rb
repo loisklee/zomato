@@ -21,7 +21,9 @@ class ReviewsController < ApplicationController
     @rev3 = JSON.parse(revres3)
     @views3 =  @rev3["user_reviews"]
 
-    render :json => @views3
+    @final = (@views1).concat(@views2).concat(@views3)
+
+    render :json => @final
 
   end
 end
