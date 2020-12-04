@@ -14,7 +14,9 @@ class CuisinesController < ApplicationController
     sec_response = HTTParty.get("https://developers.zomato.com/api/v2.1/cuisines?city_id=#{@city_id}", headers: {"Accept" => "application/JSON", "user-key" => "#{@key}"}).to_s
     @psec_response = JSON.parse(sec_response)
 
-    render :json => @psec_response
+    @result = JSON.dump((@city_info).merge(@psec_response))
+
+    render :json => @result
   end
 
 end
