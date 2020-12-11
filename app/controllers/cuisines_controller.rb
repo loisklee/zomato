@@ -4,19 +4,20 @@ require 'json'
 class CuisinesController < ApplicationController
   
   def index
-    @key = request.headers["user-key"]
-    response = HTTParty.get("https://developers.zomato.com/api/v2.1/cities?q=#{params[:city]}", headers: {"Accept" => "application/JSON", "user-key" => "#{@key}"}).to_s
+    key = request.headers["user-key"]
+    response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/cities?q=#{params[:city]}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
     
-    @parsed_response = JSON.parse(response)
-    @city_id = @parsed_response["location_suggestions"][0]["id"]
-    @city_info = @parsed_response["location_suggestions"][0]
+    return render json: 'Error: Missing API key', status: 401 unless key
+    return render json: 'Error: Missing city query', status: 400 unless params[:city]
 
-    sec_response = HTTParty.get("https://developers.zomato.com/api/v2.1/cuisines?city_id=#{@city_id}", headers: {"Accept" => "application/JSON", "user-key" => "#{@key}"}).to_s
-    @psec_response = JSON.parse(sec_response)
+    city_id = response["location_suggestions"][0]["id"]
+    city_info = response["location_suggestions"][0]
 
-    @result = JSON.dump((@city_info).merge(@psec_response))
+    sec_response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/cuisines?city_id=#{city_id}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
 
-    render :json => @result
+    result = JSON.dump((city_info).merge(sec_response))
+
+    render :json => result
   end
 
 end

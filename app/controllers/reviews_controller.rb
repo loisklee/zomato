@@ -1,29 +1,28 @@
 class ReviewsController < ApplicationController
   
   def index
-    @key = request.headers["user-key"]
-    response = HTTParty.get("https://developers.zomato.com/api/v2.1/search?entity_id=#{params[:city_id]}&entity_type=city&cuisines=#{params[:cuisine_id]}", headers: {"Accept" => "application/JSON", "user-key" => "#{@key}"}).to_s
+    key = request.headers["user-key"]
+    response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/search?entity_id=#{params[:city_id]}&entity_type=city&cuisines=#{params[:cuisine_id]}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
 
-    @parsed_response = JSON.parse(response)
-    city_1 = @parsed_response["restaurants"][0]["restaurant"]["R"]["res_id"]
-    city_2 = @parsed_response["restaurants"][1]["restaurant"]["R"]["res_id"]
-    city_3 = @parsed_response["restaurants"][2]["restaurant"]["R"]["res_id"]
+    return render json: 'Error: Missing API key', status: 401 unless key
+    return render json: 'Error: Missing city ID and/or cuisine ID', status: 400 if !params[:city_id] || !params[:cuisine_id]
 
-    revres = HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city_1}", headers: {"Accept" => "application/JSON", "user-key" => "#{@key}"}).to_s
-    @rev = JSON.parse(revres)
-    @views1 =  @rev["user_reviews"]
+    city_1 = response["restaurants"][0]["restaurant"]["R"]["res_id"]
+    city_2 = response["restaurants"][1]["restaurant"]["R"]["res_id"]
+    city_3 = response["restaurants"][2]["restaurant"]["R"]["res_id"]
 
-    revres2 = HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city_2}", headers: {"Accept" => "application/JSON", "user-key" => "#{@key}"}).to_s
-    @rev2 = JSON.parse(revres2)
-    @views2 =  @rev2["user_reviews"]
+    revres = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city_1}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
+    views1 =  revres["user_reviews"]
 
-    revres3 = HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city_3}", headers: {"Accept" => "application/JSON", "user-key" => "#{@key}"}).to_s
-    @rev3 = JSON.parse(revres3)
-    @views3 =  @rev3["user_reviews"]
+    revres2 = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city_2}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
+    views2 =  revres2["user_reviews"]
 
-    @final = (@views1).concat(@views2).concat(@views3)
+    revres3 = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city_3}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
+    views3 =  revres3["user_reviews"]
 
-    render :json => @final
+    final = (views1).concat(views2).concat(views3)
+
+    render :json => final
 
   end
 end
