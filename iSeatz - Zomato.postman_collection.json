@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "741dba8b-e167-4859-8b29-9f80e8460946",
+		"name": "iSeatz - Zomato",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/cuisines?city=Morganville",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user-key",
+						"value": "ENTERPERSONALAPIKEY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/cuisines?city=Morganville",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cuisines"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Morganville"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/reviews?city_id=3977&cuisine_id=5",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user-key",
+						"value": "ENTERPERSONALAPIKEY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reviews?city_id=290&cuisine_id=25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reviews"
+					],
+					"query": [
+						{
+							"key": "city_id",
+							"value": "290"
+						},
+						{
+							"key": "cuisine_id",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
