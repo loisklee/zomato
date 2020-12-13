@@ -1,8 +1,7 @@
 require 'httparty'
 require 'json'
 
-class CuisinesController < ApplicationController
-  
+class Api::CuisinesController < ApplicationController
   def index
     key = request.headers["user-key"]
     response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/cities?q=#{params[:city]}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
@@ -19,5 +18,4 @@ class CuisinesController < ApplicationController
 
     render :json => result
   end
-
 end

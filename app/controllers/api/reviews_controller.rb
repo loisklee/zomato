@@ -1,5 +1,7 @@
-class ReviewsController < ApplicationController
-  
+require 'httparty'
+require 'json'
+
+class Api::ReviewsController < ApplicationController
   def index
     key = request.headers["user-key"]
     response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/search?entity_id=#{params[:city_id]}&entity_type=city&cuisines=#{params[:cuisine_id]}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
@@ -23,6 +25,5 @@ class ReviewsController < ApplicationController
     final = (views1).concat(views2).concat(views3)
 
     render :json => final
-
   end
 end

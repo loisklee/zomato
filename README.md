@@ -6,9 +6,9 @@ An API that allows users to search for cuisines in a requested city and reviews 
 ## Overview 
 
 There are two endpoints that users can access via GET requests in Postman. 
-See below for usage. 
+Please see below for usage. 
 
-- **Endpoint 1**: /cuisines?city={:city_name}
+- **Endpoint 1**: api/cuisines?city={:city_name}
 
   - Receives: a city name string (in Params) and a personal API key (in Headers)
   - Response: an object with city info and list of cuisines in that city
@@ -39,7 +39,7 @@ See below for usage.
     }
     ```
 
-- **Endpoint 2**: /reviews?city_id={:city_id}&cuisine_id={:cuisine_id}
+- **Endpoint 2**: api/reviews?city_id={:city_id}&cuisine_id={:cuisine_id}
 
   - Receives: city ID and cuisine ID (in Params) and a personal API key (in Headers)
   - Response: an array of reviews for the three returned restaurants for requested city (five each, fifteen in total)
