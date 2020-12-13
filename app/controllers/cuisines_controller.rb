@@ -5,7 +5,7 @@ class CuisinesController < ApplicationController
   
   def index
     key = request.headers["user-key"]
-    response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/cities?q=#{params[:city_name]}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
+    response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/cities?q=#{params[:city]}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
     
     return render json: 'Error: Missing API key', status: 401 unless key
     return render json: 'Error: Missing city query', status: 400 unless params[:city]

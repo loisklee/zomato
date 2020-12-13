@@ -1,6 +1,12 @@
 # iSeatz - P1 // Zomato API project
 
+An API that allows users to search for cuisines in a requested city and reviews of restaurants, via [Zomato API](https://developers.zomato.com/documentation). 
+
+
 ## Overview 
+
+There are two endpoints that users can access via GET requests in Postman. 
+See below for usage. 
 
 - **Endpoint 1**: /cuisines?city={:city_name}
 
@@ -38,7 +44,7 @@
   - Receives: city ID and cuisine ID (in Params) and a personal API key (in Headers)
   - Response: an array of reviews for the three returned restaurants for requested city (five each, fifteen in total)
 
-  - Example with :city_id being "290" (New Orleans) and :cuisine_id being "25" (Chinese)
+  - Example with :city_id being "290" (New Orleans) and :cuisine_id being "25" (Chinese): 
 
     ```json
     [
@@ -69,12 +75,46 @@
     ]
     ```
 
-## Usage - Local
+## Usage 
+Run this locally: 
+
+Fork and clone a copy of the repository
+```
+git clone https://github.com/loisklee/zomato.git
+```
+
+Change directory (cd) into the zomato repo
+
+```
+git cd zomato
+```
+
+Run bundle install to install listed gems / dependencies
+
+```
+bundle install
+```
+
+Run the server
+
+```
+rails s
+```
+
+Open page in browser according to web address displayed in terminal
+
+```
+https://localhost:3000
+```
+
+Open Postman and import collection from `/iSeatz - Zomato.postman_collection.json`
+
+Enter personal API key as value for user-key in Header
+
 
 ## Built With
-- Ruby on Rails
-- HTTParty Gem
+- Ruby '2.6.3' on Rails '6.0.3'
+- [HTTParty Gem](https://github.com/jnunemaker/httparty) 
 
 ## Author
-
 Lois K. Lee
