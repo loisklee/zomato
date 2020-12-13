@@ -14,8 +14,13 @@ class Api::CuisinesController < ApplicationController
 
     sec_response = JSON.parse(HTTParty.get("https://developers.zomato.com/api/v2.1/cuisines?city_id=#{city_id}", headers: {"Accept" => "application/JSON", "user-key" => "#{key}"}).to_s)
 
-    result = JSON.dump((city_info).merge(sec_response))
+    city_info['cuisines'] = sec_response["cuisines"].map do |cuisine|
+      {
+        name: cuisine['cuisine']['cuisine_name'],
+        id: cuisine['cuisine']['cuisine_id']
+      }
+    end
 
-    render :json => result
+    render :json => city_info
   end
 end
