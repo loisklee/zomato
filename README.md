@@ -42,7 +42,7 @@ Please see below for usage.
 - **Endpoint 2**: api/reviews?city_id={:city_id}&cuisine_id={:cuisine_id}
 
   - Receives: city ID and cuisine ID (in Params) and a personal API key (in Headers)
-  - Response: an array of reviews for the three returned restaurants for requested city (five each, fifteen in total)
+  - Response: an array of reviews for the three returned restaurants for requested city and cuisine (five each, fifteen in total)
 
   - Example with :city_id being "290" (New Orleans) and :cuisine_id being "25" (Chinese): 
 
