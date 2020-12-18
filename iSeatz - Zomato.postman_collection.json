@@ -1,35 +1,36 @@
 {
 	"info": {
-		"_postman_id": "741dba8b-e167-4859-8b29-9f80e8460946",
+		"_postman_id": "ccdca0fd-90ce-412a-9cac-c2a4d85bd0d6",
 		"name": "iSeatz - Zomato",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "http://localhost:3000/cuisines?city=Morganville",
+			"name": "Endpoint 1: api/cuisines?city={:city_name}",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "user-key",
-						"value": "ENTERPERSONALAPIKEY",
+						"value": "PERSONALAPIKEY",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/cuisines?city=Morganville",
+					"raw": "http://localhost:3000/api/cuisines?city=Princeton",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
 						"cuisines"
 					],
 					"query": [
 						{
 							"key": "city",
-							"value": "Morganville"
+							"value": "Princeton"
 						}
 					]
 				}
@@ -37,24 +38,25 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/reviews?city_id=3977&cuisine_id=5",
+			"name": "Endpoint 2: api/reviews?city_id={:city_id}&cuisine_id={:cuisine_id}",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "user-key",
-						"value": "ENTERPERSONALAPIKEY",
-						"type": "text"
+						"type": "text",
+						"value": "PERSONALAPIKEY"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/reviews?city_id=290&cuisine_id=25",
+					"raw": "http://localhost:3000/api/reviews?city_id=290&cuisine_id=25",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
 						"reviews"
 					],
 					"query": [
