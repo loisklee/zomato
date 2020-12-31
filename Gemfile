@@ -5,11 +5,13 @@ ruby '2.6.3'
 gem 'httparty'
 
 group :test do
+  gem 'minitest'
   gem 'webmock'
   gem 'vcr'
   gem 'turn'
   gem 'rake'
 end
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'

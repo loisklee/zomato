@@ -171,6 +171,7 @@ DEPENDENCIES
   byebug
   httparty
   listen (~> 3.2)
+  minitest
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   rake
