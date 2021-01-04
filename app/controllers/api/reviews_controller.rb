@@ -2,29 +2,28 @@
 
 module Api
   class ReviewsController < ApplicationController
+    # before_action :validate_params, only: :index
+
     def index
-      @key = request.headers['user-key']
+      key = request.headers['user-key']
+      city_id = params[:city_id]
+      cuisine_id = params[:cuisine_id]
+      # limit = params[:limit] || 3
 
-      return render json: 'Error: Missing API key', status: 401 if @key.empty?
-      return render json: 'Error: Missing city ID', status: 400 if params[:city_id].empty?
-      return render json: 'Error: Missing cuisine ID', status: 400 if params[:cuisine_id].empty?
-
-      response = HTTParty.get("https://developers.zomato.com/api/v2.1/search?entity_id=#{params[:city_id]}&entity_type=city&cuisines=#{params[:cuisine_id]}",
-                              headers: { 'Accept' => 'application/JSON', 'user-key' => @key.to_s })
-
-      response.success? ? response : (raise response.response)
-
-      first_three_cities = response['restaurants'][0..2].map do |city|
-        city['restaurant']['R']['res_id']
-      end
-
-      final = []
-      first_three_cities.map do |city|
-        final << HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city}",
-                              headers: { 'Accept' => 'application/JSON', 'user-key' => @key.to_s })
-      end
-
-      render json: final
+      reviews = Review.search_reviews(city_id, cuisine_id, key)
+      
+      render json: reviews.to_json
     end
+
+    private 
+
+    def validate_params
+      return render json: {error:  'Missing API key'}, status: 401 if key.empty?
+      return render json: {error: 'Missing city ID'}, status: 400 if params[:city_id].empty?
+      return render json: {rror: 'Missing cuisine ID'}, status: 400 if params[:cuisine_id].empty?
+    end
+
   end
 end
+
+
