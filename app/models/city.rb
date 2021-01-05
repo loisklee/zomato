@@ -2,6 +2,7 @@
 
 class City < ApplicationRecord
   has_many :cuisines
+  has_many :restaurants 
 
   def self.get_info(city, key)
     response = HTTParty.get("https://developers.zomato.com/api/v2.1/cities?q=#{city}",
