@@ -12,16 +12,16 @@ module Api
 
       reviews = Review.search_reviews(city_id, cuisine_id, key)
       
-      render json: reviews.to_json
+      render json: reviews
     end
 
-    private 
+    # private 
 
-    def validate_params
-      return render json: {error:  'Missing API key'}, status: 401 if key.empty?
-      return render json: {error: 'Missing city ID'}, status: 400 if params[:city_id].empty?
-      return render json: {rror: 'Missing cuisine ID'}, status: 400 if params[:cuisine_id].empty?
-    end
+    # def validate_params
+    #   return render json: {error:  'Missing API key'}, status: 401 if key.empty?
+    #   return render json: {error: 'Missing city ID'}, status: 400 if params[:city_id].empty?
+    #   return render json: {rror: 'Missing cuisine ID'}, status: 400 if params[:cuisine_id].empty?
+    # end
 
   end
 end

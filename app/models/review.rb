@@ -1,8 +1,8 @@
 class Review < ApplicationRecord
-  
+  belongs_to :restaurants
   def self.search_reviews(city_id, cuisine_id, key)
     response = HTTParty.get("https://developers.zomato.com/api/v2.1/search?entity_id=#{city_id}&entity_type=city&cuisines=#{cuisine_id}",
-      headers: { 'Accept' => 'application/JSON', 'user-key' => key.to_s })
+      headers: { 'Accept' => 'application/JSON', 'user-key' => key })
     
     response.success? ? response : (raise response.response)
     
@@ -13,7 +13,7 @@ class Review < ApplicationRecord
     final = []
     first_three_cities.map do |city|
       final << HTTParty.get("https://developers.zomato.com/api/v2.1/reviews?res_id=#{city}",
-        headers: { 'Accept' => 'application/JSON', 'user-key' => key.to_s })
+        headers: { 'Accept' => 'application/JSON', 'user-key' => key })
     end
     
     final
